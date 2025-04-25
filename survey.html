@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://unpkg.com/survey-core@1.9.90/survey.core.min.js"></script>
+    <script src="https://unpkg.com/survey-knockout-ui@1.9.90/survey-knockout-ui.min.js"></script>
+    <link href="https://unpkg.com/survey-core@1.9.90/modern.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div id="surveyContainer"></div>
+<script>
+    Survey.StylesManager.applyTheme("modern");
+
+    const patients = [
+        { value: "patient1", text: "John Doe" },
+        { value: "patient2", text: "Jane Smith" },
+        { value: "patient3", text: "Carlos Vega" }
+    ];
+
+    let remainingPatients = [...patients];
+
+    function createPatientSelectionSurvey() {
+        return {
+            showQuestionNumbers: "off",
+            title: "Select Patient",
+            elements: [
+                {
+                    type: "dropdown",
+                    name: "selectedPatient",
+                    title: "Please select a patient to answer questions about:",
+                    choices: remainingPatients,
+                    isRequired: true
+                }
+            ]
+        };
+    }
+
+    function createQuestionSurvey(patientName) {
+        return {
+            showQuestionNumbers: "onPage",
+            title: `Questions for ${patientName}`,
+            pages: [
+                {
+                    elements: [{ type: "text", name: "q1", title: "What is the patient's main complaint?" }]
+                },
+                {
+                    elements: [{ type: "text", name: "q2", title: "How long has the patient had this issue?" }]
+                },
+                {
+                    elements: [{ type: "text", name: "q3", title: "Has the patient received any treatment?" }]
+                },
+                {
+                    elements: [{ type: "text", name: "q4", title: "Is the patient currently on medication?" }]
+                },
+                {
+                    elements: [{ type: "text", name: "q5", title: "What is your recommended next step?" }]
+                }
+            ]
+        };
+    }
+
+    function startSurvey(surveyJson) {
+        const survey = new Survey.Model(surveyJson);
+        survey.onComplete.add(function (sender) {
+            const selectedPatientId = sender.data.selectedPatient;
+            if (selectedPatientId) {
+                // From selection screen
+                const patientObj = patients.find(p => p.value === selectedPatientId);
+                runQuestionnaireForPatient(patientObj);
+            } else {
+                // From question screen
+                runPatientSelection();
+            }
+        });
+        Survey.KnockoutSurvey.render("surveyContainer", { model: survey });
+    }
+
+    function runPatientSelection() {
+        if (remainingPatients.length === 0) {
+            document.getElementById("surveyContainer").innerHTML = "<h3>All patients have been completed.</h3>";
+            return;
+        }
+        startSurvey(createPatientSelectionSurvey());
+    }
+
+    function runQuestionnaireForPatient(patient) {
+        // Remove completed patient
+        remainingPatients = remainingPatients.filter(p => p.value !== patient.value);
+        startSurvey(createQuestionSurvey(patient.text));
+    }
+
+    // Start the process
+    runPatientSelection();
+</script>
+</body>
+</html>
