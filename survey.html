@@ -1,35 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://unpkg.com/survey-core@latest/survey.core.min.js"></script>
-    <link href="https://unpkg.com/survey-core@latest/modern.min.css" rel="stylesheet"/>
+    <!-- Load the SurveyJS Core Library -->
+    <script src="https://unpkg.com/survey-core@1.9.90/survey.core.min.js"></script>
+    <link href="https://unpkg.com/survey-core@1.9.90/modern.min.css" rel="stylesheet"/>
 </head>
 <body>
-<div id="surveyContainer"></div>
-<script>
-    // Minimal survey with a simple dropdown
-    const surveyJson = {
-        title: "Patient Survey",
-        elements: [
-            {
-                type: "dropdown",
-                name: "patient",
-                title: "Select a patient",
-                choices: [
-                    { value: "patient1", text: "John Doe" },
-                    { value: "patient2", text: "Jane Smith" },
-                    { value: "patient3", text: "Carlos Vega" }
-                ],
-                isRequired: true
-            }
-        ]
-    };
+    <div id="surveyContainer"></div>
 
-    // Create the Survey Model
-    const survey = new Survey.Model(surveyJson);
+    <script>
+        // Define the survey JSON structure
+        const surveyJson = {
+            title: "Patient Survey",
+            elements: [
+                {
+                    type: "dropdown",
+                    name: "patient",
+                    title: "Select a patient",
+                    choices: [
+                        { value: "patient1", text: "John Doe" },
+                        { value: "patient2", text: "Jane Smith" },
+                        { value: "patient3", text: "Carlos Vega" }
+                    ],
+                    isRequired: true
+                }
+            ]
+        };
 
-    // Render the survey using the correct method
-    survey.render("surveyContainer");
-</script>
+        // Create a Survey model from the JSON
+        const survey = new Survey.Model(surveyJson);
+
+        // Render the survey into the HTML element with ID 'surveyContainer'
+        survey.render("surveyContainer");
+
+        // Optional: Add an event listener to handle completion or actions
+        survey.onComplete.add(function(result) {
+            alert("Survey completed! Data: " + JSON.stringify(result.data));
+        });
+    </script>
 </body>
 </html>
