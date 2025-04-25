@@ -25,10 +25,11 @@
         ]
     };
 
+    // Create the Survey Model
     const survey = new Survey.Model(surveyJson);
-    
-    // Render the survey
-    Survey.SurveyNG.render("surveyContainer", { model: survey });
+
+    // Render the survey using the correct method
+    survey.render("surveyContainer");
 </script>
 </body>
 </html>
