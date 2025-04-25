@@ -1,95 +1,259 @@
-<!DOCTYPE html>
 <html>
+
 <head>
-    <script src="https://unpkg.com/survey-core@1.9.90/survey.core.min.js"></script>
-    <script src="https://unpkg.com/survey-knockout-ui@1.9.90/survey-knockout-ui.min.js"></script>
-    <link href="https://unpkg.com/survey-core@1.9.90/modern.min.css" rel="stylesheet"/>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Aptos;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif;}
+.MsoChpDefault
+	{font-family:"Aptos",sans-serif;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:115%;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
 </head>
-<body>
-<div id="surveyContainer"></div>
-<script>
-    Survey.StylesManager.applyTheme("modern");
 
-    const patients = [
-        { value: "patient1", text: "John Doe" },
-        { value: "patient2", text: "Jane Smith" },
-        { value: "patient3", text: "Carlos Vega" }
-    ];
+<body lang=EN-CA style='word-wrap:break-word'>
 
-    let remainingPatients = [...patients];
+<div class=WordSection1>
 
-    function createPatientSelectionSurvey() {
-        return {
-            showQuestionNumbers: "off",
-            title: "Select Patient",
-            elements: [
-                {
-                    type: "dropdown",
-                    name: "selectedPatient",
-                    title: "Please select a patient to answer questions about:",
-                    choices: remainingPatients,
-                    isRequired: true
-                }
-            ]
-        };
-    }
+<p class=MsoNormal>&lt;!DOCTYPE html&gt;</p>
 
-    function createQuestionSurvey(patientName) {
-        return {
-            showQuestionNumbers: "onPage",
-            title: `Questions for ${patientName}`,
-            pages: [
-                {
-                    elements: [{ type: "text", name: "q1", title: "What is the patient's main complaint?" }]
-                },
-                {
-                    elements: [{ type: "text", name: "q2", title: "How long has the patient had this issue?" }]
-                },
-                {
-                    elements: [{ type: "text", name: "q3", title: "Has the patient received any treatment?" }]
-                },
-                {
-                    elements: [{ type: "text", name: "q4", title: "Is the patient currently on medication?" }]
-                },
-                {
-                    elements: [{ type: "text", name: "q5", title: "What is your recommended next step?" }]
-                }
-            ]
-        };
-    }
+<p class=MsoNormal>&lt;html&gt;</p>
 
-    function startSurvey(surveyJson) {
-        const survey = new Survey.Model(surveyJson);
-        survey.onComplete.add(function (sender) {
-            const selectedPatientId = sender.data.selectedPatient;
-            if (selectedPatientId) {
-                // From selection screen
-                const patientObj = patients.find(p => p.value === selectedPatientId);
-                runQuestionnaireForPatient(patientObj);
-            } else {
-                // From question screen
-                runPatientSelection();
-            }
-        });
-        Survey.KnockoutSurvey.render("surveyContainer", { model: survey });
-    }
+<p class=MsoNormal>&lt;head&gt;</p>
 
-    function runPatientSelection() {
-        if (remainingPatients.length === 0) {
-            document.getElementById("surveyContainer").innerHTML = "<h3>All patients have been completed.</h3>";
-            return;
-        }
-        startSurvey(createPatientSelectionSurvey());
-    }
+<p class=MsoNormal>    &lt;script
+src=&quot;https://unpkg.com/survey-core@1.9.90/survey.core.min.js&quot;&gt;&lt;/script&gt;</p>
 
-    function runQuestionnaireForPatient(patient) {
-        // Remove completed patient
-        remainingPatients = remainingPatients.filter(p => p.value !== patient.value);
-        startSurvey(createQuestionSurvey(patient.text));
-    }
+<p class=MsoNormal>    &lt;script
+src=&quot;https://unpkg.com/survey-knockout-ui@1.9.90/survey-knockout-ui.min.js&quot;&gt;&lt;/script&gt;</p>
 
-    // Start the process
-    runPatientSelection();
-</script>
+<p class=MsoNormal>    &lt;link
+href=&quot;https://unpkg.com/survey-core@1.9.90/modern.min.css&quot;
+rel=&quot;stylesheet&quot;/&gt;</p>
+
+<p class=MsoNormal>&lt;/head&gt;</p>
+
+<p class=MsoNormal>&lt;body&gt;</p>
+
+<p class=MsoNormal>&lt;div id=&quot;surveyContainer&quot;&gt;&lt;/div&gt;</p>
+
+<p class=MsoNormal>&lt;script&gt;</p>
+
+<p class=MsoNormal>    Survey.StylesManager.applyTheme(&quot;modern&quot;);</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>    const patients = [</p>
+
+<p class=MsoNormal>        { value: &quot;patient1&quot;, text: &quot;John
+Doe&quot; },</p>
+
+<p class=MsoNormal>        { value: &quot;patient2&quot;, text: &quot;Jane
+Smith&quot; },</p>
+
+<p class=MsoNormal>        { value: &quot;patient3&quot;, text: &quot;Carlos
+Vega&quot; }</p>
+
+<p class=MsoNormal>    ];</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>    let remainingPatients = [...patients];</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>    function createPatientSelectionSurvey() {</p>
+
+<p class=MsoNormal>        return {</p>
+
+<p class=MsoNormal>            showQuestionNumbers: &quot;off&quot;,</p>
+
+<p class=MsoNormal>            title: &quot;Select Patient&quot;,</p>
+
+<p class=MsoNormal>            elements: [</p>
+
+<p class=MsoNormal>                {</p>
+
+<p class=MsoNormal>                    type: &quot;dropdown&quot;,</p>
+
+<p class=MsoNormal>                    name: &quot;selectedPatient&quot;,</p>
+
+<p class=MsoNormal>                    title: &quot;Please select a patient to
+answer questions about:&quot;,</p>
+
+<p class=MsoNormal>                    choices: remainingPatients,</p>
+
+<p class=MsoNormal>                    isRequired: true</p>
+
+<p class=MsoNormal>                }</p>
+
+<p class=MsoNormal>            ]</p>
+
+<p class=MsoNormal>        };</p>
+
+<p class=MsoNormal>    }</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>    function createQuestionSurvey(patientName) {</p>
+
+<p class=MsoNormal>        return {</p>
+
+<p class=MsoNormal>            showQuestionNumbers: &quot;onPage&quot;,</p>
+
+<p class=MsoNormal>            title: `Questions for ${patientName}`,</p>
+
+<p class=MsoNormal>            pages: [</p>
+
+<p class=MsoNormal>                {</p>
+
+<p class=MsoNormal>                    elements: [{ type: &quot;text&quot;,
+name: &quot;q1&quot;, title: &quot;What is the patient's main complaint?&quot;
+}]</p>
+
+<p class=MsoNormal>                },</p>
+
+<p class=MsoNormal>                {</p>
+
+<p class=MsoNormal>                    elements: [{ type: &quot;text&quot;,
+name: &quot;q2&quot;, title: &quot;How long has the patient had this
+issue?&quot; }]</p>
+
+<p class=MsoNormal>                },</p>
+
+<p class=MsoNormal>                {</p>
+
+<p class=MsoNormal>                    elements: [{ type: &quot;text&quot;,
+name: &quot;q3&quot;, title: &quot;Has the patient received any
+treatment?&quot; }]</p>
+
+<p class=MsoNormal>                },</p>
+
+<p class=MsoNormal>                {</p>
+
+<p class=MsoNormal>                    elements: [{ type: &quot;text&quot;,
+name: &quot;q4&quot;, title: &quot;Is the patient currently on
+medication?&quot; }]</p>
+
+<p class=MsoNormal>                },</p>
+
+<p class=MsoNormal>                {</p>
+
+<p class=MsoNormal>                    elements: [{ type: &quot;text&quot;,
+name: &quot;q5&quot;, title: &quot;What is your recommended next step?&quot; }]</p>
+
+<p class=MsoNormal>                }</p>
+
+<p class=MsoNormal>            ]</p>
+
+<p class=MsoNormal>        };</p>
+
+<p class=MsoNormal>    }</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>    function startSurvey(surveyJson) {</p>
+
+<p class=MsoNormal>        const survey = new Survey.Model(surveyJson);</p>
+
+<p class=MsoNormal>        survey.onComplete.add(function (sender) {</p>
+
+<p class=MsoNormal>            const selectedPatientId =
+sender.data.selectedPatient;</p>
+
+<p class=MsoNormal>            if (selectedPatientId) {</p>
+
+<p class=MsoNormal>                // From selection screen</p>
+
+<p class=MsoNormal>                const patientObj = patients.find(p =&gt;
+p.value === selectedPatientId);</p>
+
+<p class=MsoNormal>                runQuestionnaireForPatient(patientObj);</p>
+
+<p class=MsoNormal>            } else {</p>
+
+<p class=MsoNormal>                // From question screen</p>
+
+<p class=MsoNormal>                runPatientSelection();</p>
+
+<p class=MsoNormal>            }</p>
+
+<p class=MsoNormal>        });</p>
+
+<p class=MsoNormal>       
+Survey.KnockoutSurvey.render(&quot;surveyContainer&quot;, { model: survey });</p>
+
+<p class=MsoNormal>    }</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>    function runPatientSelection() {</p>
+
+<p class=MsoNormal>        if (remainingPatients.length === 0) {</p>
+
+<p class=MsoNormal>           
+document.getElementById(&quot;surveyContainer&quot;).innerHTML =
+&quot;&lt;h3&gt;All patients have been completed.&lt;/h3&gt;&quot;;</p>
+
+<p class=MsoNormal>            return;</p>
+
+<p class=MsoNormal>        }</p>
+
+<p class=MsoNormal>        startSurvey(createPatientSelectionSurvey());</p>
+
+<p class=MsoNormal>    }</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>    function runQuestionnaireForPatient(patient) {</p>
+
+<p class=MsoNormal>        // Remove completed patient</p>
+
+<p class=MsoNormal>        remainingPatients = remainingPatients.filter(p =&gt;
+p.value !== patient.value);</p>
+
+<p class=MsoNormal>        startSurvey(createQuestionSurvey(patient.text));</p>
+
+<p class=MsoNormal>    }</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>    // Start the process</p>
+
+<p class=MsoNormal>    runPatientSelection();</p>
+
+<p class=MsoNormal>&lt;/script&gt;</p>
+
+<p class=MsoNormal>&lt;/body&gt;</p>
+
+<p class=MsoNormal>&lt;/html&gt;</p>
+
+</div>
+
 </body>
+
 </html>
