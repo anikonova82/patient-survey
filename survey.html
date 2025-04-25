@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- SurveyJS Core Library from CDNJS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/survey-core/1.9.90/survey.core.min.js"></script>
+    <!-- SurveyJS Core Library from CDNJS (Ensuring async loading) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/survey-core/1.9.90/survey.core.min.js" defer></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/survey-core/1.9.90/modern.min.css" rel="stylesheet"/>
 </head>
 <body>
@@ -27,16 +27,19 @@
             ]
         };
 
-        // Create a Survey Model from the JSON
-        const survey = new Survey.Model(surveyJson);
+        // Ensure the script has loaded before using SurveyJS
+        window.onload = function() {
+            // Create a Survey Model from the JSON
+            const survey = new Survey.Model(surveyJson);
 
-        // Render the survey into the HTML element with ID 'surveyContainer'
-        survey.render("surveyContainer");
+            // Render the survey into the HTML element with ID 'surveyContainer'
+            survey.render("surveyContainer");
 
-        // Optional: Add an event listener to handle completion or actions
-        survey.onComplete.add(function(result) {
-            alert("Survey completed! Data: " + JSON.stringify(result.data));
-        });
+            // Optional: Add an event listener to handle completion or actions
+            survey.onComplete.add(function(result) {
+                alert("Survey completed! Data: " + JSON.stringify(result.data));
+            });
+        };
     </script>
 </body>
 </html>
